@@ -44,5 +44,20 @@ namespace WebApi.Controllers
             return NotFound("Property Not Found");
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllProperty()
+        {
+            List<GetByIdResponse> responses = await _mediatrSender.Send(new GetAllPropertiesRequest());
+            return Ok(responses);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteAsync(int Id)
+        {
+            bool res = await _mediatrSender.Send(new DeletePropertyRequest(Id));
+            if (res)
+                return Ok("Property Deleted");
+            return NotFound("Property Not Found");
+        }
     }
 }

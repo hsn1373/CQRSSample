@@ -30,7 +30,7 @@ namespace Application.Features.Properties.Queries
         public async Task<GetByIdResponse> Handle(GetPropertyByIdRequest request, CancellationToken cancellationToken)
         {
             Property property = await _propertyRepo.GetByIdAsync(request.PropertyId);
-            GetByIdResponse response = new GetByIdResponse();
+            GetByIdResponse response = new();
             if (property != null)
             {
                 _mapper.Map(property, response);
