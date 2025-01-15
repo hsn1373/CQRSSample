@@ -11,6 +11,7 @@ namespace Application.MappingProfiles
         {
             CreateMap<NewPropertyDto, Property>();
             CreateMap<UpdatePropertyDto, Property>();
+            CreateMap<Property, GetByIdResponse>();
         }
     }
 }

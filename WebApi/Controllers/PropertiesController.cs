@@ -1,5 +1,5 @@
-﻿
-using Application.Features.Properties.Commands;
+﻿using Application.Features.Properties.Commands;
+using Application.Features.Properties.Queries;
 using Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +34,15 @@ namespace WebApi.Controllers
                 return Ok("Property Updated");
             return NotFound("Property Not Found");
         }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetPropertyById(int Id)
+        {
+            GetByIdResponse response = await _mediatrSender.Send(new GetPropertyByIdRequest(Id));
+            if (response != null)
+                return Ok(response);
+            return NotFound("Property Not Found");
+        }
+
     }
 }

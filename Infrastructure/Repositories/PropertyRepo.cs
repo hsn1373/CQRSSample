@@ -32,8 +32,9 @@ namespace Infrastructure.Repositories
 
         public async Task<Property> GetByIdAsync(int id)
         {
-            //return await _context.Properties.FindAsync(id);
-            return await _context.Properties.Where(p => p.Id == id).FirstOrDefaultAsync();
+            return await _context.Properties
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task UpdateAsync(Property property)
