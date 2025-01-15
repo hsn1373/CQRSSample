@@ -18,12 +18,21 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddNewProperty([FromBody] NewPropertyRequest newPropertyRequest)
+        public async Task<IActionResult> AddNewProperty([FromBody] NewPropertyDto newPropertyDto)
         {
-            bool res = await _mediatrSender.Send(new CreatePropertyRequest(newPropertyRequest));
+            bool res = await _mediatrSender.Send(new CreatePropertyRequest(newPropertyDto));
             if (res)
                 return Ok("Property Created");
             return BadRequest("Faild");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateProperty([FromBody] UpdatePropertyDto updatePropertyDto)
+        {
+            bool res = await _mediatrSender.Send(new UpdatePropertyRequest(updatePropertyDto));
+            if (res)
+                return Ok("Property Updated");
+            return NotFound("Property Not Found");
         }
     }
 }

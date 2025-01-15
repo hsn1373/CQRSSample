@@ -9,11 +9,11 @@ namespace Application.Features.Properties.Commands
 {
     public class CreatePropertyRequest : IRequest<bool>
     {
-        public NewPropertyRequest PropertyRequest { get; set; }
+        public NewPropertyDto NewPropertyDto { get; set; }
 
-        public CreatePropertyRequest(NewPropertyRequest newPropertyRequest)
+        public CreatePropertyRequest(NewPropertyDto newPropertyDto)
         {
-            PropertyRequest = newPropertyRequest;
+            NewPropertyDto = newPropertyDto;
         }
     }
 
@@ -30,7 +30,7 @@ namespace Application.Features.Properties.Commands
 
         public async Task<bool> Handle(CreatePropertyRequest request, CancellationToken cancellationToken)
         {
-            Property property = _mapper.Map<Property>(request.PropertyRequest);
+            Property property = _mapper.Map<Property>(request.NewPropertyDto);
             property.ListDate = DateTime.Now;
             await _propertyRepo.AddNewAsync(property);
             return true;

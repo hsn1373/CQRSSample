@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Domain;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -29,9 +30,10 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Property> GetByIdAsync(int id)
+        public async Task<Property> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            //return await _context.Properties.FindAsync(id);
+            return await _context.Properties.Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task UpdateAsync(Property property)

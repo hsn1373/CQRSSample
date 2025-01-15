@@ -9,7 +9,8 @@ namespace Application.MappingProfiles
     {
         public Mappings()
         {
-            CreateMap<NewPropertyRequest, Property>();
+            CreateMap<NewPropertyDto, Property>();
+            CreateMap<UpdatePropertyDto, Property>();
         }
     }
 }
