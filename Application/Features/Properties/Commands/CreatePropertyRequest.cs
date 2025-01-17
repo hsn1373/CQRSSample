@@ -1,5 +1,4 @@
-﻿
-using Application.Models;
+﻿using Application.Models;
 using Application.Repositories;
 using AutoMapper;
 using Domain;

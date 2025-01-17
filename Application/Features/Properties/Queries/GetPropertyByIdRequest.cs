@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Properties.Queries
 {
-    public class GetPropertyByIdRequest : IRequest<GetByIdResponse>
+    public class GetPropertyByIdRequest : IRequest<GetPropertyByIdResponse>
     {
         public int PropertyId { get; set; }
 
@@ -16,7 +16,7 @@ namespace Application.Features.Properties.Queries
         }
     }
 
-    public class GetByIdPropertyRequestHandler : IRequestHandler<GetPropertyByIdRequest, GetByIdResponse>
+    public class GetByIdPropertyRequestHandler : IRequestHandler<GetPropertyByIdRequest, GetPropertyByIdResponse>
     {
         private readonly IPropertyRepo _propertyRepo;
         private readonly IMapper _mapper;
@@ -27,10 +27,10 @@ namespace Application.Features.Properties.Queries
             _mapper = mapper;
         }
 
-        public async Task<GetByIdResponse> Handle(GetPropertyByIdRequest request, CancellationToken cancellationToken)
+        public async Task<GetPropertyByIdResponse> Handle(GetPropertyByIdRequest request, CancellationToken cancellationToken)
         {
             Property property = await _propertyRepo.GetByIdAsync(request.PropertyId);
-            GetByIdResponse response = new();
+            GetPropertyByIdResponse response = new();
             if (property != null)
             {
                 _mapper.Map(property, response);

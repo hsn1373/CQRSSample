@@ -38,16 +38,16 @@ namespace WebApi.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetPropertyById(int Id)
         {
-            GetByIdResponse response = await _mediatrSender.Send(new GetPropertyByIdRequest(Id));
+            GetPropertyByIdResponse response = await _mediatrSender.Send(new GetPropertyByIdRequest(Id));
             if (response != null)
                 return Ok(response);
             return NotFound("Property Not Found");
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllProperty()
+        public async Task<IActionResult> GetAllProperties()
         {
-            List<GetByIdResponse> responses = await _mediatrSender.Send(new GetAllPropertiesRequest());
+            List<GetPropertyByIdResponse> responses = await _mediatrSender.Send(new GetAllPropertiesRequest());
             return Ok(responses);
         }
 

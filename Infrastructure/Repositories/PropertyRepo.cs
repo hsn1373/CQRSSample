@@ -28,12 +28,15 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Property>> GetAllAsync()
         {
-            return await _context.Properties.ToListAsync();
+            return await _context.Properties
+                .Include(p => p.Images)
+                .ToListAsync();
         }
 
         public async Task<Property> GetByIdAsync(int id)
         {
             return await _context.Properties
+                .Include(p => p.Images)
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
         }
