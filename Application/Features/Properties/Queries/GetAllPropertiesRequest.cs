@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using Domain;
@@ -6,8 +7,17 @@ using MediatR;
 
 namespace Application.Features.Properties.Queries
 {
-    public class GetAllPropertiesRequest : IRequest<List<GetPropertyByIdResponse>>
-    { }
+    public class GetAllPropertiesRequest : IRequest<List<GetPropertyByIdResponse>>, ICacheable
+    {
+        public string CacheKey { get; set; }
+        public bool BypassCache { get; set; }
+        public TimeSpan SlidingExpiration { get; set; }
+
+        public GetAllPropertiesRequest()
+        {
+            CacheKey = "GetAllProperties";
+        }
+    }
 
     public class GetAllPropertiesRequestHandler : IRequestHandler<GetAllPropertiesRequest, List<GetPropertyByIdResponse>>
     {

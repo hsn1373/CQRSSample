@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using WebApi;
 using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+var cacheSettings = builder.Services.GetCacheSettings(builder.Configuration);
+
+//Configure Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = cacheSettings.DestinationUrl;
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -19,7 +28,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(opt => opt.DisplayRequestDuration());
 }
 
 app.UseHttpsRedirection();
