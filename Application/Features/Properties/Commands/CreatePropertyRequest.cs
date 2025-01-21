@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using Application.PipelineBehaviours.Contracts;
 using Application.Repositories;
 using AutoMapper;
 using Domain;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Properties.Commands
 {
-    public class CreatePropertyRequest : IRequest<bool>
+    public class CreatePropertyRequest : IRequest<bool>, IValidateable
     {
         public NewPropertyDto NewPropertyDto { get; set; }
 
